@@ -1,5 +1,5 @@
-# Use an official PHP runtime
-FROM php:8.1-fpm
+# Use an official PHP 8.2 runtime
+FROM php:8.2-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
