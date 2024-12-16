@@ -31,6 +31,8 @@ RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-scripts --no-autoloader --opt
 
 # Copy default .env and set APP_KEY
 COPY .env.example .env
+
+# Now run artisan key:generate
 RUN php artisan key:generate
 
 # Fix permissions
