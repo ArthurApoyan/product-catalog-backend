@@ -27,9 +27,14 @@ WORKDIR /var/www/html
 COPY . .
 
 # Install Laravel dependencies
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-scripts --no-autoloader --optimize-autoloader
+
+# Copy default .env and set APP_KEY
 COPY .env.example .env
 RUN php artisan key:generate
-RUN composer install --no-scripts --no-autoloader --optimize-autoloader
+
+# Fix permissions
+RUN chown -R www-data:www-data /var/www/html
 
 # Expose port
 EXPOSE 8000
