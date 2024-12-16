@@ -27,6 +27,8 @@ WORKDIR /var/www/html
 COPY . .
 
 # Install Laravel dependencies
+COPY .env.example .env
+RUN php artisan key:generate
 RUN composer install --no-scripts --no-autoloader --optimize-autoloader
 
 # Expose port
