@@ -27,13 +27,16 @@ WORKDIR /var/www/html
 COPY . .
 
 # Install Laravel dependencies
-RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-scripts --no-autoloader --optimize-autoloader
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install
 
 # Copy default .env and set APP_KEY
 COPY .env.example .env
 
 # Now run artisan key:generate
 RUN php artisan key:generate
+
+# Run database migrations and seed the database
+RUN php artisan migrate --seed
 
 # Fix permissions
 RUN chown -R www-data:www-data /var/www/html
